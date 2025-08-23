@@ -1,0 +1,9 @@
+fastapi
+uvicorn
+sqlalchemy
+asyncpg
+psycopg2-binary
+pgvector
+python-multipart
+Pillow
+scikit-learn

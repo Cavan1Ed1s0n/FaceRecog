@@ -1,0 +1,16 @@
+repos:
+  # Common useful hooks
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v6.0.0
+    hooks:
+      - id: trailing-whitespace        # remove extra spaces
+      - id: end-of-file-fixer          # ensure newline at end of file
+      - id: check-yaml                 # check YAML syntax
+      - id: check-toml                 # check TOML syntax
+
+  # Format Python code with Black
+  - repo: https://github.com/psf/black
+    rev: 25.1.0
+    hooks:
+      - id: black
+        language_version: python3.10

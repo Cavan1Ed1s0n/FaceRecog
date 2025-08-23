@@ -1,0 +1,45 @@
+version: '3.8'
+services:
+  db:
+    image: ankane/pgvector:latest
+    environment:
+      POSTGRES_DB: face_db
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: 123456789
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+
+  qvision-ai-face-test-service:
+    container_name: qvision-ai-face-test-service
+    depends_on:
+      - db
+
+    build:
+      context: .
+
+    image: qvision-ai-face-test-service:0.0.1
+    runtime: nvidia
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: all
+              capabilities: [gpu]
+    restart: always
+    environment:
+      - CUDA_VISIBLE_DEVICES=0
+    volumes:
+      - .:/app
+      - /etc/localtime:/etc/localtime:ro
+    ports:
+      - "8090:8090"
+    # entrypoint: [ "python3" ]
+    entrypoint: ["/bin/bash", "-c", "chmod +x /app/startup.sh && /app/startup.sh"]
+    tty: True
+
+
+volumes:
+  pgdata:
