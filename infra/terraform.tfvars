@@ -8,4 +8,4 @@ cluster_name  = "face-deepstream-gke"
 github_repo   = "https://github.com/Cavan1Ed1s0n/FaceRecog.git"
 app_image_tag = "0.0.1"
 app_namespace = "model-serving"
-enable_gpu    = false
+enable_gpu    = true
