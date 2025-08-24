@@ -11,15 +11,15 @@ services:
     volumes:
       - pgdata:/var/lib/postgresql/data
 
-  qvision-ai-face-test-service:
-    container_name: qvision-ai-face-test-service
+  face-deepstream-service:
+    container_name: face-deepstream-service
     depends_on:
       - db
 
     build:
       context: .
 
-    image: qvision-ai-face-test-service:0.0.1
+    image: face-deepstream-service:0.0.1
     runtime: nvidia
     deploy:
       resources:
