@@ -1,5 +1,5 @@
-project_id    = "mythic-inn-466302-j3"
-region        = "us-central1"
+project_id    = "mythic-inn-466302-j3" # replace with your gloud project_id
+region        = "us-central1"          # replace with your gcloud region
 zone          = "us-central1-f"
 
 repo_name     = "face-repo"

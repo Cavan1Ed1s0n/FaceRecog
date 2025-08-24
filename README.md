@@ -16,6 +16,8 @@ To support production environments, the project also includes:
 ## Limitations
 ### DeepStream limitation:
 The framework is optimized for continuous video streams rather than single-image inference. As a result, pipeline initialization and warmup take time, and once the video stream ends, the pipeline shuts down instead of keeping the model instance alive.
+### NVIDIA hardware dependency:
+The system relies on the NVIDIA DeepStream SDK, which is only supported on NVIDIA hardware (dGPU or Jetson iGPU). It cannot be natively deployed on CPU-only machines or non-NVIDIA hardware :)
 ### Pipeline execution flow:
 The DeepStream pipeline expects a synchronous, uninterrupted data flow. Introducing asynchronous calls (e.g., PostgreSQL queries or external API calls with async/await) inside the pipeline can break the flow and lead to unexpected behavior or crashes. It’s strongly recommended to keep all operations within the pipeline synchronous and lightweight.
 ### Lack of built-in CI/CD workflows:
@@ -152,6 +154,11 @@ gcloud config set project YOUR_GCP_PROJECT_ID
 ```
 Create service account:
 Update configuration in `infra/terraform.tfvars`
+```
+project_id    = "mythic-inn-466302-j3"  # replace with your gloud project_id
+region        = "us-central1"           # replace with your gcloud region
+zone          = "us-central1-f"
+```
 Enable Kubernetes Engine API
 ```https://console.cloud.google.com/marketplace/product/google/container.googleapis.com```
 
@@ -181,4 +188,8 @@ Terraform will:
 
 + create an Ingress available at: http://face.<PROJECT_ID>.nip.io once the LB IP is allocated
 
-Notes: Cloud Build IAM: gcloud builds submit uses Cloud Build service account (PROJECT_NUMBER@cloudbuild.gserviceaccount.com). Ensure this service account has roles/artifactregistry.writer for the Artifact Registry repo. If push fails, grant that role in IAM.
+Notes:
++ Cloud Build IAM: gcloud builds submit uses Cloud Build service account (PROJECT_NUMBER@cloudbuild.gserviceaccount.com). Ensure this service account has roles/artifactregistry.writer for the Artifact Registry repo. If push fails, grant that role in IAM.
+
++ The face search functionality uses pgvector, which performs similarity search based on 'distance' metric between facial feature embeddings. Smaller distance (closer to 0) means the two faces are more similar.
++ The optimal threshold to match face embeddings can vary depending on the model used for feature extraction.
