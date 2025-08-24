@@ -30,6 +30,7 @@ The architecture combines DeepStream-based video inference with cloud-native inf
 + Backend & Database: FastAPI + PostgreSQL + pgvector + SQLAlchemy
 + Cloud Deployment: Terraform + GKE (with GPU nodes)
 + Observability: Prometheus + Grafana + Loki + Promtail + Jaeger + OpenTelemetry
+![System Architecture](assets/images/System-Architecture-Face-DS.svg)
 
 ## Features
 ### Core Components
