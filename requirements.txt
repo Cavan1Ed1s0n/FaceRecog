@@ -7,3 +7,8 @@ pgvector
 python-multipart
 Pillow
 scikit-learn
+opentelemetry-distro
+opentelemetry-exporter-jaeger
+opentelemetry-instrumentation-fastapi
+opentelemetry-instrumentation-sqlalchemy
+opentelemetry-instrumentation-requests
